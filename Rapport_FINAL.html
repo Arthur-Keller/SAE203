@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Arthur KELLER, Maxime MURRAY" />
+  <title>Rapport S2.03</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Rapport S2.03</h1>
+<p class="author">Arthur KELLER, Maxime MURRAY</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#preparation-dune-machine-virtuelle-debian"><span class="toc-section-number">1</span> <strong>Preparation d’une machine virtuelle Debian</strong> <a id="partie-1"></a></a>
+<ul>
+<li><a href="#creation-de-la-machine-virtuelle"><span class="toc-section-number">1.1</span> <strong>Creation de la machine virtuelle</strong></a></li>
+<li><a href="#installation-de-los"><span class="toc-section-number">1.2</span> <strong>Installation de l’OS</strong></a></li>
+</ul></li>
+<li><a href="#préparation-du-système"><span class="toc-section-number">2</span> <strong>Préparation du système</strong></a>
+<ul>
+<li><a href="#accès-sudo-pour-user"><span class="toc-section-number">2.1</span> <strong>Accès sudo pour user</strong></a></li>
+<li><a href="#installation-des-suppléments-invité"><span class="toc-section-number">2.2</span> <strong>Installation des suppléments invité</strong></a></li>
+<li><a href="#précision-sur-le-proxy"><span class="toc-section-number">2.3</span> <strong>Précision sur le Proxy</strong></a></li>
+<li><a href="#référence"><span class="toc-section-number">2.4</span> <strong>Référence</strong></a></li>
+</ul></li>
+<li><a href="#installation-debian-automatisée-par-préconfiguration"><span class="toc-section-number">3</span> <strong>Installation Debian automatisée par préconfiguration</strong></a>
+<ul>
+<li><a href="#à-propos-de-la-distribution-debian"><span class="toc-section-number">3.1</span> <strong>À propos de la distribution Debian</strong></a></li>
+<li><a href="#la-maintenance"><span class="toc-section-number">3.2</span> <strong>La maintenance</strong></a></li>
+<li><a href="#nom-générique-nom-de-code-et-version"><span class="toc-section-number">3.3</span> <strong>Nom générique, nom de code et version</strong></a></li>
+<li><a href="#référence-1"><span class="toc-section-number">3.4</span> <strong>Référence</strong></a></li>
+<li><a href="#installation-préconfigurée"><span class="toc-section-number">3.5</span> <strong>Installation préconfigurée</strong></a>
+<ul>
+<li><a href="#fichiers-de-pré-configuration"><span class="toc-section-number">3.5.1</span> <em>Fichiers de pré-configuration</em></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#gitea"><span class="toc-section-number">4</span> <strong>Gitea</strong></a>
+<ul>
+<li><a href="#configuration-de-globale-de-git"><span class="toc-section-number">4.1</span> <strong>Configuration de globale de git</strong></a>
+<ul>
+<li><a href="#référence-2"><span class="toc-section-number">4.1.1</span> <em>Référence</em></a></li>
+<li><a href="#accéder-au-port-3000"><span class="toc-section-number">4.1.2</span> <em>Accéder au port 3000</em></a></li>
+</ul></li>
+<li><a href="#installation-de-gitea"><span class="toc-section-number">4.2</span> <strong>Installation de Gitea</strong></a>
+<ul>
+<li><a href="#installons-de-gitea"><span class="toc-section-number">4.2.1</span> <em>Installons de Gitea</em></a></li>
+<li><a href="#installation-du-binaire"><span class="toc-section-number">4.2.2</span> <em>Installation du binaire</em></a></li>
+<li><a href="#démarrage-automatique-du-service"><span class="toc-section-number">4.2.3</span> <em>Démarrage automatique du service</em></a></li>
+<li><a href="#premier-lancement-paramétrage-de-gitea"><span class="toc-section-number">4.2.4</span> <em>Premier lancement : paramétrage de Gitea</em></a></li>
+</ul></li>
+<li><a href="#utilisation-basique"><span class="toc-section-number">4.3</span> <strong>Utilisation basique</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="preparation-dune-machine-virtuelle-debian"><span class="header-section-number">1</span> <strong>Preparation d’une machine virtuelle Debian</strong> <a id="partie-1"></a></h1>
+<h2 data-number="1.1" id="creation-de-la-machine-virtuelle"><span class="header-section-number">1.1</span> <strong>Creation de la machine virtuelle</strong></h2>
+<p>Caractéristiques à respecter lors de la création de la machine virtuelle</p>
+<ul>
+<li><p>Nom de la machine dans VirtualBox : <em>sae203</em></p></li>
+<li><p>Dossier de la machine :</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="ex">/usr/local/virtual_machine/infoetu/login</span></span></code></pre></div>
+<ul>
+<li>Type : <em>Linux</em></li>
+<li>Version : <em>Debian ou Debian 11 en 64-bit</em></li>
+<li>Mémoire vive (RAM) : <em>2048 Mo pour être à l’aise à l’usage.</em></li>
+<li>Disque dur : <em>20 Go entier (une seule partition)</em></li>
+<li>Laisser le reste par défaut</li>
+</ul>
+<p><em>Question(s) 1. Configuration matérielle dans VirtualBox</em></p>
+<ul>
+<li>Que signifie “64-bit” dans “Debian 64-bit” ?</li>
+</ul>
+<pre><code>Les 64 bit signifient l&#39;utilisation d’un processeur de 64 bits </code></pre>
+<ul>
+<li>Quelle est la configuration réseau utilisée par défaut ?</li>
+</ul>
+<pre><code>La configuration réseau par défaut est de type NAT (Network Address Translation)</code></pre>
+<ul>
+<li>Quel est le nom du fichier XML contenant la configuration de votre machine ?</li>
+</ul>
+<pre><code>Le fichier XML ne comporte plus l’extension de fichier .xml. Depuis la mise à jour 
+4.0 de VirtualBox, le fichier se trouvant avant en .xml, est maintenant en .vbox.
+Il comporte comme nom, le nom que porte la VM, ainsi, notre fichier se nomme sae203.vbox 
+et il se trouve dans le fichier de la VM.</code></pre>
+<ul>
+<li>Sauriez-vous le modifier directement ce fichier pour mettre 2 processeurs à votre machine ? Faites-le.</li>
+</ul>
+<pre><code>Pour modifier le nombre de cœurs de la machine virtuelle, il faut modifier la 
+ligne 20 du fichier XML. &lt;CPU count=”...”&gt;
+
+Pour mettre deux processeurs a notre machine, il faudra mettre &lt;CPU count=”2”&gt;</code></pre>
+<h2 data-number="1.2" id="installation-de-los"><span class="header-section-number">1.2</span> <strong>Installation de l’OS</strong></h2>
+<p>Pour cette installation il vous faut d’abord télécharger une iso bootable d’une installation de <em>Debian 11</em>, pour ce faire vous la trouverez sur le site officiel de <a href="https://www.debian.org">Debian</a>. Par la suite il vous faudra utiliser l’interface graphique de Virtualbox et insérer le fichier iso d’installation de votre Debian que vous venez de télécharger dans le cdrom virtuel.</p>
+<p>Vous pouvez maintenant allumez votre machine virtuelle et commencez l’installation de votre OS avec les informations ci-dessous.</p>
+<p><em>Caractéristiques à considérer :</em></p>
+<ul>
+<li>Nom de la machine (à l’installation) : <span class="couleur">seveur</span></li>
+<li>Domaine : Laisser vide</li>
+<li>Pays/Langue : <span class="couleur">France</span></li>
+<li>Miroir : <span class="couleur"><code>http://debian.polytech-lille.fr</code></span></li>
+<li>Proxy (uniquement si l’installation est faite depuis le réseau de l’IUT) : <a href="http://cache.univ-lille.fr:3128" class="uri">http://cache.univ-lille.fr:3128</a></li>
+<li>Compte administrateur : <span class="couleur">root</span> / <span class="couleur">root</span></li>
+<li>Un Compte utilisateur : <span class="couleur">User</span> / <span class="couleur">user</span> / <span class="couleur">user</span></li>
+<li>Partition : 1 seule partition recouvrant le disque entier</li>
+<li>Sélection des logiciels de démarrage (Paquetages logiciels à préinstaller pour se simplifier la vie par la suite) :
+<ul>
+<li>Grub</li>
+<li>environnement de bureau Debian</li>
+<li>MATE (penser à décocher Gnome)</li>
+<li>serveur web</li>
+<li>serveur ssh</li>
+<li>utilitaire usuels du système</li>
+</ul></li>
+</ul>
+<p>En cas de soucis avec l’installation, vous pouvez vous référer à la section de la documentation Debian qui détaille la procédure : <a href="https://www.debian.org/doc/manuals/debian-handbook/sect.installation-steps.fr.html">guide Debian</a>.</p>
+<blockquote>
+<img src="image/ampoule.png" title="fig:" id="id" class="class" width="40" alt="Image ampoule" />
+<p class="txt">
+Conseil
+</p>
+<p>À la fin de la procédure d’installation, avant de relancer le système, assurez-vous que le lecteur optique soit vide (icône grisé en bas de la fenêtre de votre VM) sinon vous redémarrerez sur l’iso d’installation.</p>
+</blockquote>
+<p>Une fois l’installation terminée, vouspouvez supprimer l’iso d’installation pour économiser de l’espace usr votre compte.</p>
+<p><em>Question(s) 2. Installation OS de base</em></p>
+<ul>
+<li><p>Qu’est-ce qu’un fichier iso bootable</p>
+<pre><code>Un fichier iso bootable est un fichier d’installation permettant la procédure 
+d’installation lors du lancement de l’ordinateur.</code></pre></li>
+<li><p>Qu’est-ce que MATE ? GNOME ?</p>
+<pre><code>MATE (prononcer maté à l&#39;espagnole) est un environnement de bureau libre 
+utilisant (dans un premier temps) la boîte à outils GTK+ 3. x et destiné 
+aux systèmes d&#39;exploitation apparentés à UNIX.</code></pre>
+<pre><code>GNOME est un environnement graphique pour plateformes GNU /Linux et Unix. 
+Projet démarré en 1997, il est un ensemble d&#39;outils permettant d&#39;exploiter 
+graphiquement votre ordinateur : gestionnaire de fichiers, utilitaires, 
+logithèque, clients mail, navigateur web, logiciels divers, etc.</code></pre></li>
+<li><p>Qu’est-ce qu’un serveur web ?</p>
+<pre><code>Un « serveur web » peut faire référence à des composants logiciels (software) 
+ou à des composants matériels (hardware) ou à des composants logiciels et 
+matériels qui fonctionnent ensemble.
+
+1. Au niveau des composants matériels, un serveur web est un ordinateur qui 
+stocke les fichiers qui composent un site web (par exemple les documents HTML, 
+les images, les feuilles de style CSS, les fichiers JavaScript) et qui les envoie 
+à l&#39;appareil de l&#39;utilisateur qui visite le site. Cet ordinateur est connecté à 
+Internet et est généralement accessible via un nom de domaine tel que mozilla.org.
+
+2. Au niveau des composants logiciels, un serveur web contient différents fragments 
+qui contrôlent la façon dont les utilisateurs peuvent accéder aux fichiers hébergés. 
+On trouvera au minimum un serveur HTTP.</code></pre></li>
+<li><p>Qu’est-ce qu’un serveur ssh ?</p>
+<pre><code>SSH est un protocole permettant d&#39;établir une communication chiffrée, donc 
+sécurisée (on parle parfois de tunnel), sur un réseau informatique (intranet ou 
+Internet) entre une machine locale (le client) et une machine distante (le serveur).</code></pre></li>
+<li><p>Qu’est-ce qu’un serveur mandataire ?</p>
+<pre><code>Pour une définition du mot &quot; proxy &quot;, voir l&#39;article proxy du Wiktionnaire. 
+Un serveur mandataire ou proxy (de l&#39;anglais) est un serveur informatique 
+qui a pour fonction de relayer des requêtes entre un poste client et un serveur. 
+Les serveurs mandataires sont notamment utilisés pour assurer les fonctions suivantes:
+  - mémoire cache ;
+  - la journalisation des requêtes (&quot; logging &quot;) ;
+  - la sécurité du réseau local ;
+  - le filtrage et l&#39;anonymat.
+L&#39;utilité des serveurs mandataires est importante, notamment dans le cadre 
+de la sécurisation des systèmes d&#39;information.</code></pre></li>
+</ul>
+<h1 data-number="2" id="préparation-du-système"><span class="header-section-number">2</span> <strong>Préparation du système</strong></h1>
+<h2 data-number="2.1" id="accès-sudo-pour-user"><span class="header-section-number">2.1</span> <strong>Accès sudo pour user</strong></h2>
+<p>L’accès au groups sudo va nous permettre de simplifier la gestion du système, cependant en temps réél ce n’est pas obligatoire et peut même être considéré comme une fragilité</p>
+<p>Suivez ces étapes :</p>
+<ul>
+<li><p>Passer en mode console : Ctrl + Alt + F1 (si cela vous met en pleine écran, vous n’êtes pas dans la console de la machine virtuelle)</p></li>
+<li><p>Se connecter en root : login = root et mot de passe = root Ajouter le groupe sudo à votre principal (pensez à indiquer dans le rapport la commande utilisée pour faire cette action) Recharger votre session. Vous pouvez maintenant utiliser la commande sudo avec le compte user.</p>
+<p><em>Question(s) 3. sudo</em></p></li>
+<li><p>Comment peux-t-on savoir à quels groupes appartient l’utilisateur user ?</p>
+<pre><code>  Premièrement, on peut trouver le groupe auquel appartient l&#39;utilisateur 
+  user dans le fichier /etc/group.
+  Deuxièmement, on peut utiliser la commande groups afin de connaître le(s) 
+  groupe(s) de l&#39;utilisateur courant (si aucun nom d&#39;utilisateur n&#39;est mis 
+  derrière la commande).</code></pre></li>
+</ul>
+<h2 data-number="2.2" id="installation-des-suppléments-invité"><span class="header-section-number">2.2</span> <strong>Installation des suppléments invité</strong></h2>
+<p>Pour ajouter les suppléments invités, nous allons devoir compiler des programmes. Il nous faut donc des outils de compilation et les fichiers d’en-têtes du noyaux linux utilisé :</p>
+<p><em>Suivez ces étapes :</em></p>
+<ul>
+<li>Insérer le cd des suppléments : <strong>Périphériques › Insérer l’image CD des additions invités…</strong></li>
+</ul>
+<figure>
+<img src="image/CdSupp.jpg" id="id" class="class" width="300" alt="" /><figcaption>Addition invité</figcaption>
+</figure>
+<ul>
+<li>Monter le cd</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="fu">sudo</span> mount /dev/cdrom /mnt</span></code></pre></div>
+<ul>
+<li>Installer les suppléments</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fu">sudo</span> /mnt/VBoxLinuxAdditions.run</span></code></pre></div>
+<ul>
+<li>Rebooter et connecter-vous avec le compte user pour prendre en compte les suppléments.</li>
+</ul>
+<p>Votre machine est maintenant prête pour une utilisation confortable</p>
+<p><em>Question(s) 4. Suppléments invités</em></p>
+<ul>
+<li>Quel est la version du noyau Linux utilisé par votre VM ? N’oubliez pas, comme pour toutes les questions, de justifier votre réponse.</li>
+</ul>
+<pre><code>Grâce à la commande : cat /proc/version 
+Nous pouvons savoir la version de linux utiliser par la VM. Celle ci est 
+la version 5.10.0-21-amd64</code></pre>
+<ul>
+<li>À quoi servent les suppléments invités ? Donner 2 principales raisons de les installer.</li>
+</ul>
+<pre><code>Les additions invitées améliorent les performances du système d&#39;exploitation 
+invité et permettent une meilleure interaction entre la machine hôte 
+et la machine invitée.</code></pre>
+<ul>
+<li>À quoi sert la commande mount (dans notre cas de figure et dans le cas général) ?</li>
+</ul>
+<pre><code>La commande mount permet de demander au système d&#39;exploitation de rendre 
+un système de fichiers accessible, à un emplacement spécifié.</code></pre>
+<h2 data-number="2.3" id="précision-sur-le-proxy"><span class="header-section-number">2.3</span> <strong>Précision sur le Proxy</strong></h2>
+<p>De manière générale, vous aurez à utiliser un proxy quand vous êtes au sein de l’université et pas à l’extérieure. En fait vous pourriez tout à fait utiliser un proxy tout le temps mais pas toujours celui de l’université (pour des raisons de sécurité, de traçage des données en transit …). Détaillons plusieurs situations :</p>
+<ul>
+<li>À l’installation : Vous l’avez déjà fait dans le chapitre précédent.</li>
+<li>Pour un logiciel particulier : Certains logiciels peuvent gérer eux-même un proxy pour leur propre usage. Voici quelques exemples</li>
+</ul>
+<p><strong>apt</strong> &gt; Le proxy se place dans le fichier <span class="couleur"><code>/etc/apt/apt.conf</code></span> ou dans le répertoire <span class="couleur"><code>/etc/apt/apt.conf.d/</code></span> (avec un fichier de nom quelconque). C’est ce qui est utilisé lors de l’installation de base. Le contenu doit bien sûr respecter un format particulier : <span class="couleur"><code>Acquire::http::proxy "http://cache.univ-lille.fr:3128";</code></span>. &gt; &gt; Détails ici : <a href="https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.fr.html#sect.apt-config">Options de configuration apt</a></p>
+<p><strong>git</strong> &gt; La commande git peut elle aussi utiliser un proxy spécifique qui pourra être placé par exemple dans la configuration globale avec la commande <span class="couleur"><code>git config --global http.proxy</code></span> ou directement dans le fichier `~/.gitconfig section [http). &gt; &gt; Détails ici : <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-httpproxy">it paramètre http.proxy</a>.</p>
+<ul>
+<li>Pour une configuration générale :
+<ul>
+<li><strong>Terminal</strong> (v1) : Via les variables d’environnement du terminal :<br />
+&gt; export http_proxy=<a href="http://cache.univ-lille.fr:3128" class="uri">http://cache.univ-lille.fr:3128</a> &gt; &gt; export https_proxy=$http_proxy</li>
+<li><strong>Terminal</strong> (v2) : Ajouter la ligne précédente dans votre fichier <span class="couleur"><code>$HOME/.bashrc</code></span> afin d’éviter d’avoir à la saisir à chaque fois. Pour désactiver le proxy, dans les deux cas il vous suffit d’écrire : <span class="couleur"><code>unset http_proxy</code></span> en ligne de commande.</li>
+</ul></li>
+<li><strong>Via MATE</strong> : La configuration se trouve dans le menu “<strong>Système</strong> › <strong>Préférences</strong> › <strong>Internet et réseau</strong> › <strong>Serveur mandataire</strong>”. Mettez la même url pour <em>HTTP</em> et <em>HTTP sécurisé</em>.</li>
+</ul>
+<p>Pour le désactiver, il vous suffira de cocher l’option “Connexion directe à Internet” au même endroit</p>
+<hr />
+<h2 data-number="2.4" id="référence"><span class="header-section-number">2.4</span> <strong>Référence</strong></h2>
+<ul>
+<li><p><em>Questions 1. Configuration matérielle dans VirtualBox</em></p></li>
+<li><p><a href="https://fr.wikipedia.org/wiki/Processeur_64_bits">Que signifie “64-bit” dans “Debian 64-bit” ?</a> : Partie Systèmes d’exploitation 64 bits</p></li>
+<li><p><em>Questions 2. Installation OS de base</em></p></li>
+<li><p><a href="https://www.malekal.com/les-fichiers-iso/#:~:text=Les%20ISO%20sont%20généralement%20utilisés,bootable%20pour%20installer%20ce%20dernier.">Qu’est-ce qu’un fichier iso bootable ?</a></p></li>
+<li><p>Qu’est-ce que <a href="https://mate-desktop.org/fr/#:~:text=MATE%20est%20un%20fork%20de,d%27exploitation%20similaires%20à%20Unix.">MATE</a> ? <a href="https://www.gnome.org">GNOME</a> ? (Définition utile : <a href="https://developer.mozilla.org/fr/docs/Glossary/Fork">fork</a>)</p></li>
+<li><p><a href="https://developer.mozilla.org/fr/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server">Qu’est-ce qu’un serveur web ?</a></p></li>
+<li><p><a href="https://www.it-connect.fr/chapitres/quest-ce-que-ssh/">Qu’est-ce qu’un serveur ssh ?</a></p></li>
+<li><p><a href="https://www.futura-sciences.com/tech/definitions/internet-proxy-488/">Qu’est-ce qu’un serveur mandataire ?</a></p></li>
+<li><p><em>Questions 3.sduo</em></p></li>
+<li><p>Comment peux-ton savoir à quels groupes appartient l’utilisateur user ?</p>
+<ul>
+<li>Pour cette question nous avons utilisé le cours d’introduction systèmes, R1.04 de S1.</li>
+</ul></li>
+<li><p><em>Questions 4.Suppléments invités</em></p></li>
+<li><p><a href="https://doc.ubuntu-fr.org">Quel est la version du noyau Linux utilisé par votre VM ?</a></p></li>
+<li><figure>
+<img src="image/Version_noyau.png" alt="" /><figcaption>version_linux</figcaption>
+</figure></li>
+<li><p><a href="https://lecrabeinfo.net/virtualbox-installer-les-additions-invite-guest-additions.html#:~:text=Les%20additions%20invité%20(guest%20additions,hôte%20et%20la%20machine%20invité.)">À quoi servent les suppléments invités ?</a></p></li>
+<li><p><a href="https://www.ibm.com/docs/fr/power8?topic=commands-mount-command">À quoi sert la commande mount ?</a></p></li>
+</ul>
+<h1 data-number="3" id="installation-debian-automatisée-par-préconfiguration"><span class="header-section-number">3</span> <strong>Installation Debian automatisée par préconfiguration</strong></h1>
+<h2 data-number="3.1" id="à-propos-de-la-distribution-debian"><span class="header-section-number">3.1</span> <strong>À propos de la distribution Debian</strong></h2>
+<ul>
+<li>Qu’est-ce que le Projet Debian ? D’où vient le nom Debian ?</li>
+</ul>
+<pre><code>Le projet Debian est un groupe mondial de volontaires qui s&#39;efforcent 
+de produire un système d&#39;exploitation qui soit composé exclusivement 
+de logiciels libres. Le principal produit de ce projet est la distribution 
+Debian GNU/Linux, qui inclut le noyau Linux ainsi que des milliers 
+d&#39;applications pré empaquetées. 
+La prononciation officielle de Debian est « déb-yann ». Le nom tire son origine 
+des prénoms du créateur de Debian, Ian Murdock, et de son épouse, Debra.</code></pre>
+<figure>
+<img src="image/IanMurdock.jpg" id="id" class="class" width="300" alt="" /><figcaption>Ian Murdock</figcaption>
+</figure>
+<h2 data-number="3.2" id="la-maintenance"><span class="header-section-number">3.2</span> <strong>La maintenance</strong></h2>
+<ul>
+<li>Il existe 3 durées de prise en charge (support) de ces versions : la durée minimale, la durée en support long terme (LTS) et la durée en support long terme étendue (ELTS). Quelles sont les durées de ces prises en charge ?</li>
+</ul>
+<pre><code>      Debian Long Term Support (LTS), pour prise en charge à long terme, 
+      est un projet pour étendre la durée de vie de toutes les versions 
+      stables de Debian à (au moins) 5 ans. Debian LTS n&#39;est pas gérée 
+      par l&#39;équipe chargée de la sécurité de Debian, mais par un groupe 
+      distinct de bénévoles et sociétés intéressées pour en faire un succès. 
+
+      La prise en charge à long terme étendue (ELTS) est une offre commerciale 
+      offrant un prolongement de la durée de vie de 10 ans des versions 
+      de Debian (c&#39;est-à-dire de 5 ans après la prise en charge de 5 ans 
+      offerte pas le projet LTS). Il ne s&#39;agit pas d&#39;un projet officiel 
+      de Debian. L&#39;infrastructure de Debian, et les autres ressources 
+      de Debian ne sont pas impliquées.</code></pre>
+<ul>
+<li>Pendant combien de temps les mises à jour de sécurité seront-elles fournies ? Nom générique, nom de code et version</li>
+</ul>
+<pre><code>L&#39;équipe Debian LTS prendra en charge les mises à jour de sécurité des 
+différentes versions une fois que l&#39;équipe chargée de la sécurité aura 
+terminé son travail.</code></pre>
+<h2 data-number="3.3" id="nom-générique-nom-de-code-et-version"><span class="header-section-number">3.3</span> <strong>Nom générique, nom de code et version</strong></h2>
+<ul>
+<li>Combien de versions au minimum sont activement maintenues par Debian ? Donnez leur nom générique (= les types de distribution).</li>
+</ul>
+<pre><code>Il y a toujours au moins trois versions qui sont activement maintenues par debian:
+
+  -  La distribution stable contient la dernière distribution 
+  officiellement sortie de Debian.
+
+  - La distribution testing contient les paquets qui n&#39;ont pas encore 
+  été acceptés dans la distribution stable, mais qui sont en attente de 
+  l&#39;être. Le principal avantage d&#39;utiliser cette distribution est qu&#39;elle 
+  contient des versions plus récentes des logiciels.
+
+  - La distribution unstable est celle sur laquelle les activités de 
+  développement se déroulent. Généralement, cette distribution est utilisée 
+  par les développeurs et par ceux qui aiment vivre sur le fil.</code></pre>
+<ul>
+<li>Chaque distribution majeur possède un nom de code différent. Par exemple, la version majeur actuelle (Debian 11) se nomme Bullseye. D’où viennent les noms de code données aux distributions ?</li>
+</ul>
+<pre><code>Les versions successives de la distribution Debian portent à la fois un 
+numéro de version traditionnel et des noms de code tirés des personnages 
+du film Toy Story de Pixar/Disney (1995)</code></pre>
+<ul>
+<li>L’un des atouts de Debian fut le nombre d’architecture officiellement prises en charge. Combien et lesquelles sont prises en charge par la version Bullseye ?</li>
+</ul>
+<pre><code>La version Bullseye prend en charges 9 architecture différentes :
+
+  - PC 64 bits (amd64)
+  - ARM 64 bits (AArch64)
+  - EABI ARM (armel)
+  - ARM avec unité de calcul flottant (armhf)
+  - PC 32 bits (i386)
+  - MIPS (petit-boutiste)
+  - MIPS 64 bits (petit-boutiste)
+  - PowerPC 64 bits (petit-boutiste)
+  - System z</code></pre>
+<ul>
+<li>Première version avec un nom de code
+<ul>
+<li>Quelle a était le premier nom de code utilisé ?</li>
+<li>Quand a-t-il été annoncé ?</li>
+<li>Quelle était le numéro de version de cette distribution ?</li>
+</ul></li>
+<li>Dernière nom de code attribué
+<ul>
+<li><p>Quel est le dernier nom de code annoncée à ce jour ?</p></li>
+<li><p>Quand a-t-il été annoncé ?</p></li>
+<li><p>Quelle est la version de cette distribution ?</p>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th style="text-align: center;">Nom de code</th>
+<th style="text-align: center;">Distribution</th>
+<th style="text-align: center;">Date de publication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Première</td>
+<td style="text-align: center;"><em>Buzz</em></td>
+<td style="text-align: center;">Debian 1.1</td>
+<td style="text-align: center;">Juin 1996</td>
+</tr>
+<tr class="even">
+<td>Dernière</td>
+<td style="text-align: center;"><em>Bullseye</em></td>
+<td style="text-align: center;">Debian 11.6</td>
+<td style="text-align: center;">17 Décembre 2022</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul>
+<h2 data-number="3.4" id="référence-1"><span class="header-section-number">3.4</span> <strong>Référence</strong></h2>
+<ol type="1">
+<li><p>Qu’est-ce que le <strong><a href="https://www.debian.org/doc/manuals/project-history/intro.fr.html#begining">Projet Debian</a></strong> ? D’où vient le nom <strong><a href="https://www.debian.org/doc/manuals/project-history/intro.fr.html#pronouncing-debian">Debian</a></strong> ?</p></li>
+<li><p>Il existe 3 durées de prise en charge (support) de ces versions : la durée minimale, la durée en <strong><a href="https://wiki.debian.org/fr/LTS">support long terme (LTS)</a></strong> et la durée en <strong><a href="https://wiki.debian.org/fr/LTS/Extended">support long terme étendue (ELTS)</a></strong>. Quelle sont les durées de ces prises en charge ?</p></li>
+<li><p>Pendant combien de temps les <strong><a href="https://wiki.debian.org/fr/LTS">mises à jour</a></strong> de sécurité seront-elles fournies ?</p></li>
+<li><p>Combien de version au minimum sont <strong><a href="https://www.debian.org/releases/index.fr.html">activement maintenues</a></strong> par Debian ? Donnez leur nom générique (=les types de distribution).</p></li>
+<li><p>Chaque distribution majeur possède un nom de code différent. Par exemple, la version majeur actuelle (Debian 11) se nomme Bullseye. <strong><a href="https://wiki.debian.org/fr/DebianReleases">D’où viennent les noms de code</a></strong> données aux distributions ?</p></li>
+<li><p>L’un des atouts de Debian fut le nombre d’architecture officiellement prises en charge. Combien et <strong><a href="https://www.debian.org/releases/stable/">lesquelles sont prises en charge par la version Bullseye</a></strong> ?</p></li>
+<li><p><strong><a href="https://www.debian.org/doc/manuals/project-history/detailed.fr.html#rel-1">Première</a></strong> version avec un nom de code</p></li>
+<li><p><strong><a href="https://www.debian.org/releases/stable/">Dernier</a></strong> nom de code attribué</p></li>
+</ol>
+<h2 data-number="3.5" id="installation-préconfigurée"><span class="header-section-number">3.5</span> <strong>Installation préconfigurée</strong></h2>
+<h3 data-number="3.5.1" id="fichiers-de-pré-configuration"><span class="header-section-number">3.5.1</span> <em>Fichiers de pré-configuration</em></h3>
+<ul>
+<li><p>Après avoir récupérer l’archive <span class="couleur">autoinstall.zip</span> et l’avoir decompresser dans notre machine virtuelle</p></li>
+<li><p>Remplacer la chaîne @<span class="citation" data-cites="UUID">@UUID</span>@@ par un identifiant unique universel. Le plus simple est d’exécuter la commande ci-dessous en étant placé dans le même répertoire que votre fichier <span class="couleur">S203-Debian11.viso</span>. .</p></li>
+</ul>
+<pre><code>sed -i -E &quot;s/(--iprt-iso-maker-file-marker-bourne-sh).*$/\1=
+$(cat /proc/sys/kernel/random/uuid)/&quot; S203-Debian11.viso</code></pre>
+<ul>
+<li><p>Insérer le fichier S203_Debian11.viso dans le lecteur optique (cd/dvd) de votre machine virtuelle</p></li>
+<li><p>Démarrer la machine virtuelle et laissez l’installation se dérouler jusqu’au reboot.</p></li>
+<li><p>Testez les ajouts invités en vous connectant (user/user, ou root/root) puis en modifiant la taille de la fenêtre</p></li>
+</ul>
+<p>Votre installation est pour le moment sans interface graphique.</p>
+<p><em>Question(s) 1.Ajustement de la pré-configuration</em></p>
+<p>Pour repondre aux différentes demandent nous allons devoir modifier le fichier <span class="couleur">preseed-fr.cfg</span> <img src="./image/preseed.jpg" alt="Fichier preseed" /></p>
+<p>A l’aide du guide de pré-configuration d’une Debian Bullseye, nous avons pu modifier correctement le fichier.</p>
+<p>Nous y avons modifier la ligne 56 qui était :</p>
+<pre><code>d-i passwd/user-default-groups string audio cdrom video</code></pre>
+<p>Pour y ajouter :</p>
+<pre><code>d-i passwd/user-default-groups string audio cdrom video sudo</code></pre>
+<p>Celle-ci va servir à ce que l’utilisateur <em>user</em> est les droits sudo dès la fin de la configuration.</p>
+<p>Pour l’installation de l’environnement MATE, nous avons modifier la ligne 83 qui était :</p>
+<pre><code>tasksel tasksel/first multiselect standard ssh-server</code></pre>
+<p>Pour devenir:</p>
+<pre><code>tasksel tasksel/first multiselect standard ssh-server mate-desktop</code></pre>
+<p>Pour ce qui est de l’installation des différents paquets nous avons ajouter les</p>
+<pre><code>## Installation des différents paquets 
+d-i pressed/late_command string apt-get install sudo
+d-i pressed/late_command string sudo apt install git-all
+d-i pressed/late_command string sudo apt install sqlite3
+d-i pressed/late_command string sudo apt install curl
+d-i pressed/late_command string sudo apt install bash-completion
+d-i pressed/late_command string sudo apt install neofetch</code></pre>
+<p>Une fois le fichier modifié, vous pouvez lancer votre VM et n’avez plus rien à faire. Une fois l’installationn finit, l’identifiant et le mot de passe de l’utilasteur</p>
+<pre><code>Nom d&#39;utisateur : user
+Mot de passe : user</code></pre>
+<p>Pour finir l’installation des différents paquets que nous avons ajouter lors de la modification du <em>preseed-fr.cfg</em>, il vous suffit de taper les commandes:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="ex">Par</span> exemple pour installer sqlite3</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a>    <span class="fu">sudo</span> apt-get update   </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a>    <span class="fu">sudo</span> apt-get install sqlite3</span></code></pre></div>
+<h1 data-number="4" id="gitea"><span class="header-section-number">4</span> <strong>Gitea</strong></h1>
+<p>Nous considérons que les étapes précédentes sont réalisées. Vous avez donc une machine virtuelle avec une Debian 11.6 avec au moins mate-desktop, git, et sqlite3 installés (et quelques autres paquets).</p>
+<h2 data-number="4.1" id="configuration-de-globale-de-git"><span class="header-section-number">4.1</span> <strong>Configuration de globale de git</strong></h2>
+<p>Configurons quelques paramètres pour le logiciel git sur votre compte utilisateur.</p>
+<p><em>Ouvrez un terminal et effectuez les commandes suivantes :</em></p>
+<pre><code>git config --global user.name &quot;Prénom Nom&quot; 
+git config --global user.email &quot;votre@email&quot;
+git config --global init.defaultBranch &quot;master&quot; 
+
+En remplacant &#39;Prenom Nom&#39; et &#39;votre@email&#39; par la votre bien sur ;)
+
+Puis, installez le paquet git-gui. </code></pre>
+<p><em>Question(s) 1.preliminaire</em> - Qu’est-ce que le logiciel git-gui ? Comment se lance-t-il ?</p>
+<pre><code>Git Gui est l&#39;interface graphique d&#39;un outil en ligne de commande. 
+De ce fait, toutes les possibilités offertes par Git ne sont pas 
+disponibles dans Git Gui.
+
+Pour lancer git-gui, il faut lancer un terminal et se déplacer dans 
+le dossier ou se trouve le &#39;.git&#39;. Pour être sur qu&#39;il est bien présent 
+vous devez taper &#39;ls -a&#39; dans votre terminal. Une fois dans le bon 
+dossier a partir de votre termianl, il vous suffit juste de taper la commande:
+
+git gui</code></pre>
+<figure>
+<img src="image/GitGui.png" alt="" /><figcaption>Interface de git gui</figcaption>
+</figure>
+<ul>
+<li>Même question mais pour gitk</li>
+</ul>
+<pre><code>gitk est un navigateur de dépôt graphique. Il permet d&#39;explorer et 
+de visualiser l&#39;historique d&#39;un dépôt. 
+
+Pour lancer gitk, c&#39;est exactement la même chose que pour git-gui. 
+Il faut lancer un terminal et se déplacer dans le dossier ou se trouve 
+le &#39;.git&#39;. Pour être sur qu&#39;il est bien présent vous devez taper &#39;ls -a&#39; 
+dans votre terminal. Une fois dans le bon dossier a partir de votre 
+termianl, il vous suffit juste de taper la commande:
+
+gitk </code></pre>
+<figure>
+<img src="image/gitk.png" alt="" /><figcaption>Interface de gitk</figcaption>
+</figure>
+<ul>
+<li>Quelle sera la ligne de commande git pour utiliser par défaut le proxy de l’université sur tous vos projets git ?</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="fu">git</span> config --global --add proxy http://cache.univ-lille.fr:3128</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="fu">git</span> config --global --add https-proxy http://cache.univ-lille.fr:3128</span></code></pre></div>
+<h3 data-number="4.1.1" id="référence-2"><span class="header-section-number">4.1.1</span> <em>Référence</em></h3>
+<ol type="1">
+<li><em>Question(s) 1.preliminaire</em> <br> 1.1 Qu’est-ce que le logiciel <strong><a href="https://git-scm.com/book/fr/v2/Annexe-A%3A-Git-dans-d%E2%80%99autres-environnements-Interfaces-graphiques">git-gui</a></strong> ? Comment se lance-t-il ? <br> 1.2 Mêmes questions avec <strong><a href="https://git-scm.com/book/fr/v2/Annexe-A%3A-Git-dans-d%E2%80%99autres-environnements-Interfaces-graphiques">gitk</a></strong>. <br> 1.3 Quelle sera la ligne de <strong><a href="https://gist.github.com/evantoli/f8c23a37eb3558ab8765">commande git pour utiliser par défaut le proxy</a></strong> de l’université sur tous vos projets git ?</li>
+</ol>
+<hr />
+<p>Avant de se lancer dans l’installation de Gitea proprement dites, vous aurez besoin d’ouvrir des ports d’accès sur votre machine virtuelle.</p>
+<h3 data-number="4.1.2" id="accéder-au-port-3000"><span class="header-section-number">4.1.2</span> <em>Accéder au port 3000</em></h3>
+<p>Le service Gitea est un service web et utilise par défaut sur le port 3000 de la machine sur lequel il est démarré. Il n’est donc pas nécessaire d’être root pour le démarrer (mais il faut être root pour l’installer).</p>
+<p>Vous allez voir comment rediriger les messages arrivant sur le port 3000 de la machine physique vers le port 3000 de la machine virtuelle.</p>
+<p>Tous les détails se trouvent ici : https://www.virtualbox.org/manual/UserManual.html#networkingdetails</p>
+<p>Le mode réseau par défaut de vos machines virtuelles est le mode NAT. Il permet de faire la redirection dont nous avons besoins ici. Sur votre VM, on peut ajouter avec l’interface graphique (faites-le) les redirections de port comme indiqué sur la figure ci-dessous :</p>
+<figure>
+<img src="./image/ConfigReseau.jpg" alt="" /><figcaption>Configuration réseaux</figcaption>
+</figure>
+<h2 data-number="4.2" id="installation-de-gitea"><span class="header-section-number">4.2</span> <strong>Installation de Gitea</strong></h2>
+<p>Tout d’abord, renseignons-nous sur le service Gitea.</p>
+<p><em>Question(s) 2. À propos de Gitea</em></p>
+<ul>
+<li>Qu’est ce que gitea ?</li>
+</ul>
+<pre><code>Gitea est une forge logiciel libre à source ouverte et une bifurcation de Gogs. 
+C&#39;est un logiciel écrit en Go et une alternative auto-hébergeable à Github qui 
+se veut plus légère que Gitlab tant en terme de consommation de ressources 
+qu&#39;en fonctionnalités.
+
+Le Go, ou Goulang est un langage de programmation compilé et concurrent 
+inspiré de C et Pascal. Il a été développé par Google à partir d&#39;un concept 
+initial de Robert Griesemer, Rob Pike et Ken Thompson.
+
+https://docs.gitea.io/fr-fr/</code></pre>
+<figure>
+<img src="image/Gitea_Logo.png" id="id" class="class" width="300" alt="" /><figcaption>gitea</figcaption>
+</figure>
+<ul>
+<li>À quels logiciels bien connus dans ce domaine peut-on le comparer (en citer au moins 2) ?</li>
+</ul>
+<pre><code>Il est similaire à GitHub et GitLab</code></pre>
+<p><img src="image/GitHub-Logo.png" id="id" class="class" width="300" alt="gitHab" /> <img src="image/GitLab_logo.png" id="id" class="class" width="300" alt="gitLab" /></p>
+<p>Vous avez pu remarquer que l’installation d’un logiciel en utilisant un paquet Debian était très simple. Malheureusement, il n’existe pas encore de paquet Debian officiel pour ce logiciel.</p>
+<p>Malgré l’absence de paquet Debian, l’installation de Gitea est assez simple via de multiples solutions décrites dans la documentation : https://docs.gitea.io (compilation des sources, récupération d’un binaire pré-compilé, via Docker …) ou encore via des scripts non officiels</p>
+<p><strong>Toujours se fier à la documentation officielle</strong></p>
+<p><em>plutôt qu’à n’importe qu’elle autre documentation qui pourrait :</em></p>
+<ul>
+<li><p>Ne pas être à jour : OS en version différente, dépendances modifiées depuis l’écriture du script, logiciel modifié… (tout cela peut entraîner des changements parfois conséquents)</p></li>
+<li><p>Donner des indications relatives à une installation particulière mais dont les information ne sont pas indiquées (configuration par défaut non indiquée par l’auteur du blog donnant les indications par exemple)</p></li>
+<li><p>Posséder des erreurs parfois simples à corriger, mais difficiles à repérer (des commandes inutiles ou inexactes, des paquets inutiles…),</p></li>
+</ul>
+<p>Nous allons donc éviter les scripts non officiels.</p>
+<h3 data-number="4.2.1" id="installons-de-gitea"><span class="header-section-number">4.2.1</span> <em>Installons de Gitea</em></h3>
+<p>Nous allons installer un binaire pré-compilé.</p>
+<h3 data-number="4.2.2" id="installation-du-binaire"><span class="header-section-number">4.2.2</span> <em>Installation du binaire</em></h3>
+<p>Pour ce faire, nous suivres les 4 premières étape de l’installation : https://docs.gitea.io/en-us/install-from-binary/ en respectant les contyraintes particulières suivantes :</p>
+<ol type="1">
+<li>La version du binaire pré-compilé à installer est la version 1.18.5</li>
+<li>Base de données : nous utiliserons sqlite3²</li>
+<li>Pour vous simlplifier l’installation, l’utilisateur qui lancera Gitea sera le même que dans les documentations</li>
+</ol>
+<p>² Si vous n’avez pas installer sqlite3, il vous suffit de taper les commandes suivantes dans un terminal</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="fu">sudo</span> apt-get update   </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="fu">sudo</span> apt-get install sqlite3</span></code></pre></div>
+<p>Maintenant nous allons passer aux différentes étapes à faire pour l’installation de gitea</p>
+<p>Commencer par copier ces commandes dans votre terminal</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="fu">sudo</span> wget -O gitea https://dl.gitea.com/gitea/1.18.5/gitea-1.18.5-linux-amd64</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a><span class="fu">chmod</span> +x gitea</span></code></pre></div>
+<p>Nous allons ensuite créer notre utilisateur pour utiliser gitea. Il suffit juste de copier coller ces lignes dans votre terminal :</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="ex">adduser</span> <span class="kw">\</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a>   <span class="ex">--system</span> <span class="kw">\</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a>   <span class="ex">--shell</span> /bin/bash <span class="kw">\</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a>   <span class="ex">--gecos</span> <span class="st">&#39;Git Version Control&#39;</span> <span class="kw">\</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a>   <span class="ex">--group</span> <span class="kw">\</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a>   <span class="ex">--disabled-password</span> <span class="kw">\</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a>   <span class="ex">--home</span> /home/git <span class="kw">\</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true"></a>   <span class="fu">git</span></span></code></pre></div>
+<p>Nous allons ensuite créer la structure de répertoire requise avec les lignes suivantes :</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="fu">mkdir</span> -p /var/lib/gitea/<span class="dt">{custom,data,log}</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a><span class="fu">chown</span> -R git:git /var/lib/gitea/</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a><span class="fu">chmod</span> -R 750 /var/lib/gitea/</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a><span class="fu">mkdir</span> /etc/gitea</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a><span class="fu">chown</span> root:git /etc/gitea</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a><span class="fu">chmod</span> 770 /etc/gitea</span></code></pre></div>
+<p>Ensuite nous passons à la configuration du repertoire de travail Gitea avec la commande suivante :</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="bu">export</span> <span class="va">GITEA_WORK_DIR=</span>/var/lib/gitea/</span></code></pre></div>
+<p>Et pour finir il suffit de copier le binaire de Gitea dans un emplacement global</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="fu">cp</span> gitea /usr/local/bin/gitea</span></code></pre></div>
+<h3 data-number="4.2.3" id="démarrage-automatique-du-service"><span class="header-section-number">4.2.3</span> <em>Démarrage automatique du service</em></h3>
+<p>Nous souhaitons que <em>Gitea</em> soit lancé automatiquement à chaque démarrage.</p>
+<p>Pour commencer copiez l’exemple de <a href="https://github.com/go-gitea/gitea/blob/main/contrib/systemd/gitea.service">gitea.service</a> dans</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="ex">/etc/systemd/system/gitea.service</span></span></code></pre></div>
+<p>Puis éditez le fichier avec votre éditeur préféré.<br> Décommentez tout service qui doit être activé sur cet hôte, par exemple MySQL:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="va">Wants=</span>mysql.service</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="va">After=</span>mysql.service</span></code></pre></div>
+<p>Modifiez l’utilisateur, le répertoire personnel et les autres valeurs de démarrage requises. <br> Modifiez le PORT ou supprimez le drapeau -p si le port par défaut est utilisé.</p>
+<p>Vous pouvez maintenant activer et démarrer Gitea, au démarrage :</p>
+<pre><code>sudo systemctl enable gitea
+sudo systemctl start gitea</code></pre>
+<p>Si vous avez la version 220 de systemd ou une version ultérieure, vous pouvez activer et démarrer immédiatement Gitea en procédant comme suit :</p>
+<pre><code>sudo systemctl enable gitea --now</code></pre>
+<blockquote>
+<figure>
+<img src="image/tips.png" id="id" class="class" data-heigth="40px" width="50" alt="" /><figcaption>tips</figcaption>
+</figure>
+</blockquote>
+<h3 data-number="4.2.4" id="premier-lancement-paramétrage-de-gitea"><span class="header-section-number">4.2.4</span> <em>Premier lancement : paramétrage de Gitea</em></h3>
+<p>Une fois l’installation du binaire effectué, il faut passer au paramétrage du service lui-même. Cela peut se faire en créant et modifiant certains fichiers de configuration, mais cela peut aussi se faire via un navigateur web</p>
+<p>Vous vous rappelez sûrement que nous avons ouvert le port 3000 sur votre machine virtuelle. Nous allons profiter de cette étape de paramétrage pour vérifier que cela fonctionne.</p>
+<p><em>Suivez cette procédure :</em> 1. Verifier que le service est bien démarré</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a>$ <span class="ex">systemctl</span> status gitea.service</span></code></pre></div>
+<ol start="2" type="1">
+<li>Utilisez le navigateur de votre machine physique pour vous rendre sur l’url : http://localhost:3000. Normalement, vous devriez voir quelque chose de semblable à la photo ci-dessous.</li>
+</ol>
+<figure>
+<img src="image/Port3000.jpg" id="id" class="class" width="500" alt="" /><figcaption>Port 3000</figcaption>
+</figure>
+<blockquote>
+<p>Si cela ne fonctionne pas, il faut retourner voir la Section 1.2.</p>
+<p>Et si vraiment vous n’y arrivez pas, vous pouvez toujours utiliser le navigateur de la machine virtuelle (mais c’est dommage).</p>
+</blockquote>
+<p>Il est temps de modifier le paramétrage de Gitea.</p>
+<p><em>Voici les informations nécessaires :</em></p>
+<ul>
+<li>La base de données sera <span class="couleur">SQLite3 </span></li>
+<li>Le compte administrateur web[3] sera :
+<ul>
+<li>Nom : <span class="couleur">gitea</span></li>
+<li>Password : <span class="couleur">gitea</span></li>
+<li>Email : <span class="couleur">git@localhost</span></li>
+</ul></li>
+</ul>
+<figure>
+<img src="image/ParaGitea.jpg" id="id" class="class" width="500" alt="" /><figcaption>Parametre Gitea</figcaption>
+</figure>
+<p>N’oubliez pas non plus de protéger <span class="couleur">/etc/gitea</span> et <span class="couleur">/etc/gitea/app.ini</span> comme indiqué dans la documentation à la fin de l’installation web.</p>
+<p><em>Question(s) 3. Mise à jour</em> - Comment faire pour la mettre à jour sans devoir tout reconfigurer ?</p>
+<p>Avant de commencer votre mise à jour veuillez désactiver Gitea avec la commande suivante :</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="ex">systemctl</span> stop gitea</span></code></pre></div>
+<p>Ensuite soyez sur d’avoir effectuer une copie du fichier <code>app.ini</code> dans un emplacement sûr.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="fu">cp</span> /etc/gitea/app.ini /chemin_de_votre_dossier_sûr</span></code></pre></div>
+<p>Maintenant il vous faut télécharger la dernière version de Gitea, ensuite il vous suffit de remplacer le nouveau fichier <code>app.ini</code> par le fichier précédemment sauvegarder dans votre dossier sûr.</p>
+<p>Pour finir il suffit de réactiver Gitea :</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a><span class="ex">systemctl</span> start gitea</span></code></pre></div>
+<h2 data-number="4.3" id="utilisation-basique"><span class="header-section-number">4.3</span> <strong>Utilisation basique</strong></h2>
+<p><em>Réalisez l’ajout de plusieurs projets</em></p>
+<ul>
+<li>Un projet directement créé depuis l’interface web de Gitea</li>
+<li>Vos rapports sur cette saé</li>
+<li>Vos codes sources de TP et projets dans les ressources de développement (ceux des membres de vos équipes des autres projets)</li>
+</ul>
+</body>
+</html>
